@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import About from "./components/Pages/About"
 import CurrentProblemSet from "./components/Pages/CurrentProblemSet"
 import MyData from "./components/Pages/MyData/MyData"
-import ImportExport from "./components/Pages/ImportExport"
+import Editor from "./components/Pages/Editor/Editor"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
@@ -29,7 +29,7 @@ const App = () => {
             <Route path="/about" exact component={About}/>
             <Route path="/mydata" component={MyData}/>
             <Route path="/currentproblemset" component={CurrentProblemSet}/>
-            <Route path="/importandexport" component={ImportExport}/>
+            <Route path="/editor" component={Editor}/>
           </Switch>
       </Router> 
     </div>

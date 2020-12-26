@@ -1,8 +1,7 @@
 import React from "react";
 import calculus from "../../../images/calculus.jpeg";
-import statistics from "../../../images/Statistics.jpeg";
-// import ladr from "../../../images/ladr.jpeg";
-// import { dummyd } from "./dummydata";
+import statistics from "../../../images/statistics.jpeg";
+import ladr from "../../../images/ladr.jpeg";
 import { makeStyles } from "@material-ui/core/styles";
 import StatsTable from "./StatsTable";
 import { Typography, Box, Container } from "@material-ui/core";

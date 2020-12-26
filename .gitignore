@@ -35,7 +35,7 @@ jspm_packages
 #Excluding build directory
 public/
 
-client/src/config.js
+server/config.js
 # Logs
 logs
 *.log

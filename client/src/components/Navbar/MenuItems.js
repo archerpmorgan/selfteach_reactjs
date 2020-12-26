@@ -18,7 +18,7 @@ export const MenuItems = [
         icon: 'fas fa-pencil-alt'
     },
     {
-        title: 'Import and Export',
+        title: 'Editor',
         url: '#',
         cName: 'nav-links',
         icon: 'fas fa-book-open'

@@ -16,6 +16,8 @@ Tech stack
 
 
 Ideas/TODO
-- remove all traces of starter project and publish git repository
 - Secret management solution
 - UI Form editor for the JSON for a book
+  - Options for sections:
+    - https://medium.com/@vanu.verma/creating-a-dynamic-inline-editable-table-in-react-part-3-328486201ed9
+    - https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/editing/
