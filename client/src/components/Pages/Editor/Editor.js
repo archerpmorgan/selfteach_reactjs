@@ -158,7 +158,7 @@ function Editor() {
     },
   ];
 
-  const [selected, setSelected] = useState("Home");
+  const [selected, setSelected] = useState("Sections");
 
   return (
     <>
@@ -170,7 +170,7 @@ function Editor() {
 
       <div className="App mt-4">
         <TabNav
-          tabs={["Home", "Settings", "Profile"]}
+          tabs={["Sections", "Problems"]}
           selected={selected}
           setSelected={setSelected}
         >
@@ -179,13 +179,6 @@ function Editor() {
           </Tab>
           <Tab isSelected={selected === "Problems"}>
             <h1>More test text</h1>
-          </Tab>
-          <Tab isSelected={selected === "Profile"}>
-            <ul>
-              <li>List test 1</li>
-              <li>List test 2</li>
-              <li>List test 3</li>
-            </ul>
           </Tab>
         </TabNav>
       </div>

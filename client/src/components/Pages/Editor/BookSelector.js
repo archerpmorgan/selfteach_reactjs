@@ -44,17 +44,18 @@ export default function CheckboxListSecondary() {
 
   return (
     <List dense className={classes.root}>
-      {["calculus", "ladr", "Statistics"].map((value) => {
+      {["calculus", "ladr", "statistics"].map((value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
           <ListItem key={value} button>
             <ListItemAvatar>
               <Avatar
                 variant="square"
-                img={images[value]}
+                src={images[value]}
+                alt={"book cover photo"}
               />
             </ListItemAvatar>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+            <ListItemText id={labelId} primary={value} />
             <ListItemSecondaryAction>
               <Checkbox
                 edge="end"

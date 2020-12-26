@@ -59,7 +59,7 @@ function BookDataOverview() {
     <Box className={classes.bookdata}>
       {allbooksdatacooked.map((item, index) => (
         <Container key={index}>
-          <img src={item.image} alt="book title" />
+          <img src={item.image} alt={item.title} />
           <Typography>{item.title}</Typography>
           <StatsTable summaryData={item.summaryData} />
           <Donut data={item.problemData} textlabelname="Problems" />
