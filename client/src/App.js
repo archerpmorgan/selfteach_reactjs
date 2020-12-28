@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { getAllBookData } from './actions/bookdata';
 import useStyles from './styles';
@@ -12,13 +11,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 const App = () => {
-  const [currentId, setCurrentId] = useState(0);
+  const [currentId] = useState(0);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getAllBookData());
-  }, [currentId, dispatch]);
+  dispatch(getAllBookData());
 
   return (
     <div className="App">
