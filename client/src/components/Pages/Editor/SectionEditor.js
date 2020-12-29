@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useTable, useRowSelect, useRowState, useMemo } from "react-table";
-import { extractSectionsForTable, selectBook } from "../../../common/DataFunctions.js";
-import { useSelector } from "react-redux";
-
-
-
-// let globalfuncsetrowstate =null;
+import { useTable, useRowSelect, useRowState } from "react-table";
+import {
+  extractSectionsForTable,
+  selectBook,
+} from "../../../common/DataFunctions.js";
+import { useSelector, useDispatch } from "react-redux";
+import { storeSectionData } from "../../../actions/tablesectiondata";
+import { storeSectionCheckedRows } from "../../../actions/sectioncheckedrows";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -37,14 +38,34 @@ const Styles = styled.div`
   }
 `;
 
-// function onRowToggle(row){
-//   console.log(globalfuncsetrowstate);
-//   console.log("hi");
-// }
+function deepcopy(object) {
+  return(JSON.parse(JSON.stringify(object)));
+}
+
+function simpleObjectEquality(a, b) {
+  let keyfound = false;
+  let valuematches = false;
+  for (const [akey, avalue] of Object.entries(a)) {
+    for (const [bkey, bvalue] of Object.entries(b)) {
+      if (akey === bkey) {
+        keyfound = true;
+        if (b[bkey] === a[akey]) {
+          valuematches = true;
+        }
+      }
+    }
+    console.log(keyfound, valuematches);
+    if (!(keyfound && valuematches)) {
+      return false;
+    }
+    keyfound = false;
+    valuematches = false;
+  }
+  return true;
+}
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
-    // rest.onChange = onRowToggle;
     const defaultRef = React.useRef();
     const resolvedRef = ref || defaultRef;
 
@@ -75,7 +96,7 @@ function createInitialState(data) {
   return retval;
 }
 
-function Table({ columns, data, updateMyData, skipPageReset }) {
+function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
 
   let initialState = createInitialState(data);
@@ -88,24 +109,12 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
     prepareRow,
     selectedFlatRows,
     state: { selectedRowIds },
-    setRowState,
   } = useTable(
     {
       columns,
       data,
-      updateMyData,
       initialState: {
         selectedRowIds: initialState,
-      },
-      useControlledState: (state) => {
-        // update state in redux store
-        console.log(state);
-        return React.useMemo(
-          () => ({
-            ...state,
-          }),
-          [state]
-        );
       },
     },
     useRowSelect,
@@ -134,6 +143,12 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
   // TODO
   // - use the function to toggle to selected based on whether or not studied is true
   // - use the onchange to change the redux state for the table if checked
+
+  const dispatch = useDispatch();
+  if (Object.keys(selectedRowIds).length != 0) {
+      dispatch(storeSectionCheckedRows(JSON.parse(JSON.stringify(selectedRowIds))));
+      dispatch(storeSectionData(data));
+  }
 
   // Render the UI for your table
   return (
@@ -182,6 +197,23 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
   );
 }
 
+// send a deep clone of rowdata, not rowdata, for making this function easier
+
+// function updateSectionState(selectedRowIds, rowdata, dispatch) {
+//   let nochange = true;
+//   for (const [key, value] of Object.entries(selectedRowIds)) {
+//     if (rowdata[parseInt(key, 10)].haveStudied === "false") {
+//       nochange = false;
+//       rowdata[parseInt(key, 10)].haveStudied = "true"
+//     }
+//   }
+//   if (Object.keys(selectedRowIds).length === 0 || nochange) {
+//     console.log("not updating, no change");
+//   } else {
+//     console.log("should update, diff");
+//     dispatch(storeSectionData(rowdata));
+//   }
+// }
 
 function SectionEditor(props) {
   const columns = React.useMemo(
@@ -206,50 +238,13 @@ function SectionEditor(props) {
     []
   );
 
-  console.log(props.bookname);
-
-  const allbookdata = useSelector((state) => state.bookdata);
-  console.log(allbookdata);
-
-  // if (Object.keys(allbookdata).length === 0) {
-  //   return (<></>);
-  // }
-
+  const allbookdata = deepcopy(useSelector((state) => state.bookdata));
   const onebookdata = selectBook(allbookdata, props.bookname);
-  const [data, setData] = React.useState(() => extractSectionsForTable(onebookdata));
-  const [originalData] = React.useState(data)
-  const [skipPageReset, setSkipPageReset] = React.useState(false)
+  const sectionData = extractSectionsForTable(onebookdata);
 
-  // // We need to keep the table from resetting the pageIndex when we
-  // // Update data. So we can keep track of that flag with a ref.
-
-  // // When our cell renderer calls updateMyData, we'll use
-  // // the rowIndex, columnId and new value to update the
-  // // original data
-  const updateMyData = (rowIndex, columnId, value) => {
-    // We also turn on the flag to not reset the page
-      setData((old) =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-        return row;
-      })
-    );
-  };
-
-  console.log(data);
   return (
     <Styles>
-      <Table
-        columns={columns}
-        data={data}
-        updateMyData={updateMyData}
-        skipPageReset={skipPageReset}
-      />
+      <Table columns={deepcopy(columns)} data={deepcopy(sectionData)}/>
     </Styles>
   );
 }
