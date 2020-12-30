@@ -16,6 +16,7 @@ import Avatar from "@material-ui/core/Avatar";
 import calculus from "../../../images/calculus.jpeg";
 import statistics from "../../../images/statistics.jpeg";
 import { useSelector } from "react-redux";
+import ProblemEditor from "./ProblemEditor";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +83,7 @@ function Editor() {
             <SectionEditor bookname={checked[0]}></SectionEditor>
           </Tab>
           <Tab isSelected={selectedTab === "Problems"}>
-            <h1>More test text</h1>
+            <ProblemEditor bookname={checked[0]}></ProblemEditor>
           </Tab>
         </TabNav>
       </div>

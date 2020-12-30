@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import { flipStudiedSections } from "../../../common/DataFunctions.js";
-import PropTypes from 'prop-types';
+import { flipCompletedProblems } from "../../../common/DataFunctions.js";
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,8 +16,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import * as api from '../../../api/index.js';
-
-
 
 function EnhancedTableHead(props) {
   return (
@@ -89,10 +86,6 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -118,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function EnhancedTable(props) {
+export default function ProblemEditorTable(props) {
   const rows = props.rows
   const headCells = props.headCells;
   const classes = useStyles();
@@ -152,8 +145,9 @@ export default function EnhancedTable(props) {
     if (selected.length == 0) {
       return;
     }
-    console.log("uploading changes");
-    const newBookData = flipStudiedSections(rawBookData, selected, props.bookTitle);
+    console.log("uploading changes to problems");
+    const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);
+    console.log(newBookData);
     const response = await api.flipBookSections(newBookData);
     window.location.reload();
   }
@@ -168,7 +162,7 @@ export default function EnhancedTable(props) {
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
-  const isStudied = (row) => row.haveStudied === "true";
+  const isCompleted = (row) => row.completed === "true";
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -185,10 +179,10 @@ export default function EnhancedTable(props) {
             <EnhancedTableHead headCells={headCells}/>
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.sectionName + "-" + row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   let studiedStyle = {};
-                  if (isStudied(row)) {
+                  if (isCompleted(row)) {
                     studiedStyle = {
                       backgroundColor: "rgba(12, 245, 16, 0.1)"
                     }
@@ -196,11 +190,11 @@ export default function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.sectionName + "-" + row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                       style={studiedStyle}
                     >
@@ -210,10 +204,9 @@ export default function EnhancedTable(props) {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">{row.name} </TableCell>
-                      <TableCell align="left">{row.description}</TableCell>
-                      <TableCell align="left" style={ isStudied(row) ? {color: "green" } : {color: "red"}}>{row.haveStudied}</TableCell>
-                      <TableCell align="left">{(row.studiedDate === "") ? "-na-" : row.studiedDate}</TableCell>
+                      <TableCell component="th" id={row.id} scope="row" padding="none">{row.sectionName} </TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left" style={ isCompleted(row) ? {color: "green" } : {color: "red"}}>{row.completed}</TableCell>
                     </TableRow>
                   );
                 })}

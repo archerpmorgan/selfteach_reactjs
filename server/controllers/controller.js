@@ -1,4 +1,3 @@
-import { Item } from "@azure/cosmos";
 import express from "express";
 import { container } from "../Data/CosmosDBContext.js";
 
@@ -16,16 +15,33 @@ export const getAllBookData = async (req, res) => {
 };
 
 export const flipBookSections = async (req, res) => {
-  console.log(req.body);
+  const data = req.body.resources;
   try {
-    req.body.resources.forEach(Item => {
-      console.log(Item.id)
-    });
-    // const bookdata = await container.items
-    //   .query("SELECT * from archer WHERE true")
-    //   .fetchAll();
+    for (var i = 0; i < data.length; i++) {
+      const result = await container.items.upsert(data[i]);
+      console.log(result);
+    }
     res.status(201).json({});
   } catch (error) {
+    console.log(error.message);
     res.status(409).json({ message: error.message });
   }
 };
+
+export const flipBookProblems = async (req, res) => {
+  const data = req.body.resources;
+  try {
+    for (var i = 0; i < data.length; i++) {
+      const result = await container.items.upsert(data[i]);
+      console.log(result);
+    }
+    res.status(201).json({});
+  } catch (error) {
+    console.log(error.message);
+    res.status(409).json({ message: error.message });
+  }
+};
+
+
+
+
