@@ -56,6 +56,7 @@ export function extractSectionsForTable(bookdata) {
     if (Object.keys(bookdata).length === 0) {
         return [
           {
+            id: 0,
             name: "",
             haveStudied: false,
             studiedDate: "",
@@ -67,13 +68,29 @@ export function extractSectionsForTable(bookdata) {
     if (Object.keys(bookdata).length === 0) {
       return {};
     }
+    let i = 0;
     bookdata.sections.forEach((section) => {
       accumulator.push({
+        id: i,
         name: section.name,
         description: section.description,
         haveStudied: section.haveStudied.toString(),
         studiedDate: section.studiedDate,
       });
+      i++;
     });
     return accumulator;
+  }
+
+  export function flipStudiedSections(bookdata, sectionsToFlip, bookname){
+    bookdata.resources.forEach((book) => {
+      if (book.title === bookname) {
+        book.sections.forEach((section) => {
+          if (sectionsToFlip.includes(section.name)){
+            section.haveStudied = (section.haveStudied) ? false : true;
+          }
+        })
+      }
+    })
+    return bookdata;
   }

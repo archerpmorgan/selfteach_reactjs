@@ -28,13 +28,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Editor() {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(["An Introduction to Mathematical Statistics and Its Applications"]);
+  const [checked, setChecked] = React.useState(["Calculus Single and Multivariable"]);
   const [selectedTab, setSelectedTab] = useState("Sections");
   const allbookdata = useSelector((state) => state.bookdata);
   const bookTitles = getTitles(allbookdata);
 
   const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
     const newChecked = [];
     newChecked.push(value);
     setChecked(newChecked);

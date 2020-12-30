@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllBookData } from './actions/bookdata';
-import useStyles from './styles';
 import Navbar from "./components/Navbar/Navbar";
 import About from "./components/Pages/About"
 import CurrentProblemSet from "./components/Pages/CurrentProblemSet"
@@ -11,9 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 const App = () => {
-  const [currentId] = useState(0);
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   dispatch(getAllBookData());
 
