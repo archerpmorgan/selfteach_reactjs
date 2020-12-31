@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllBookData } from './actions/bookdata';
+import { storeProblemSetData } from './actions/problemsetdata';
 import Navbar from "./components/Navbar/Navbar";
 import About from "./components/Pages/About"
-import CurrentProblemSet from "./components/Pages/CurrentProblemSet"
+import CurrentProblemSet from "./components/Pages/ProblemSet/CurrentProblemSet"
 import MyData from "./components/Pages/MyData/MyData"
 import Editor from "./components/Pages/Editor/Editor"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -13,6 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   dispatch(getAllBookData());
+  dispatch(storeProblemSetData());
 
   return (
     <div className="App">

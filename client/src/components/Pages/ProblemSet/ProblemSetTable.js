@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ProblemEditorTable(props) {
+export default function ProblemSetTable(props) {
   const rows = props.rows
   const headCells = props.headCells;
   const classes = useStyles();

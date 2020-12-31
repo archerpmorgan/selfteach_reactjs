@@ -1,10 +1,11 @@
 import express from "express";
-import { container } from "../Data/CosmosDBContext.js";
+import { database } from "../Data/CosmosDBContext.js";
 
 const router = express.Router();
 
 export const getAllBookData = async (req, res) => {
   try {
+    const { container } = await database.containers.createIfNotExists({ id: "archer" });
     const bookdata = await container.items
       .query("SELECT * from archer WHERE true")
       .fetchAll();
@@ -17,6 +18,7 @@ export const getAllBookData = async (req, res) => {
 export const flipBookSections = async (req, res) => {
   const data = req.body.resources;
   try {
+    const { container } = await database.containers.createIfNotExists({ id: "archer" });
     for (var i = 0; i < data.length; i++) {
       const result = await container.items.upsert(data[i]);
       console.log(result);
@@ -31,6 +33,7 @@ export const flipBookSections = async (req, res) => {
 export const flipBookProblems = async (req, res) => {
   const data = req.body.resources;
   try {
+    const { container } = await database.containers.createIfNotExists({ id: "archer" });
     for (var i = 0; i < data.length; i++) {
       const result = await container.items.upsert(data[i]);
       console.log(result);
@@ -41,6 +44,19 @@ export const flipBookProblems = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const getAllProblemSetData = async (req, res) => {
+  try {
+    const { container } = await database.containers.createIfNotExists({ id: "archerproblemsets" });
+    const problemsetdata = await container.items
+      .query("SELECT * from archerproblemsets WHERE true")
+      .fetchAll();
+    console.log(problemsetdata);
+    res.status(200).json(problemsetdata);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
 
 
 
