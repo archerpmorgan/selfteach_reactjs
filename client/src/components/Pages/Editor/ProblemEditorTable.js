@@ -142,12 +142,12 @@ export default function ProblemEditorTable(props) {
   };
 
   const handleUpload = async () => {
-    if (selected.length == 0) {
+    if (selected.length === 0) {
       return;
     }
     const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);
-    console.log(newBookData);
     const response = await api.flipBookSections(newBookData);
+    // Check response code 
     window.location.reload();
   }
 

@@ -149,7 +149,7 @@ export default function EnhancedTable(props) {
   };
 
   const handleUpload = async () => {
-    if (selected.length == 0) {
+    if (selected.length === 0) {
       return;
     }
     console.log("uploading changes");

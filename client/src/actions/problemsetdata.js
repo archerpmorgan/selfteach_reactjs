@@ -1,10 +1,9 @@
-import { STORE_PROBLEM_SET_DATA } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
-export const storeProblemSetData = (data) =>  async (dispatch) => {
+export const getAllProblemSetData = () =>  async (dispatch) => {
     try {
-        const { data } = await api.getAllBookData();
-        dispatch({ type: STORE_PROBLEM_SET_DATA, payload: data });
+        const { data } = await api.getAllProblemSetData();
+        dispatch({ type: "problemsetdata/getall", payload: data });
       } catch (error) {
         console.log(error.message);
       }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllBookData } from './actions/bookdata';
-import { storeProblemSetData } from './actions/problemsetdata';
+import { getAllProblemSetData } from './actions/problemsetdata';
 import Navbar from "./components/Navbar/Navbar";
 import About from "./components/Pages/About"
 import CurrentProblemSet from "./components/Pages/ProblemSet/CurrentProblemSet"
@@ -13,8 +13,8 @@ import './App.css';
 const App = () => {
   const dispatch = useDispatch();
 
+  dispatch(getAllProblemSetData());
   dispatch(getAllBookData());
-  dispatch(storeProblemSetData());
 
   return (
     <div className="App">

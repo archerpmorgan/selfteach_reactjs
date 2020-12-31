@@ -142,7 +142,7 @@ export default function ProblemSetTable(props) {
   };
 
   const handleUpload = async () => {
-    if (selected.length == 0) {
+    if (selected.length === 0) {
       return;
     }
     const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);

@@ -32,6 +32,7 @@ function Editor() {
   const [checked, setChecked] = React.useState(["Calculus Single and Multivariable"]);
   const [selectedTab, setSelectedTab] = useState("Sections");
   const allbookdata = useSelector((state) => state.bookdata);
+  console.log(allbookdata);
   const bookTitles = getTitles(allbookdata);
 
   const handleToggle = (value) => () => {

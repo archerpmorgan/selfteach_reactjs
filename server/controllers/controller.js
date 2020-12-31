@@ -21,7 +21,6 @@ export const flipBookSections = async (req, res) => {
     const { container } = await database.containers.createIfNotExists({ id: "archer" });
     for (var i = 0; i < data.length; i++) {
       const result = await container.items.upsert(data[i]);
-      console.log(result);
     }
     res.status(201).json({});
   } catch (error) {
@@ -36,7 +35,6 @@ export const flipBookProblems = async (req, res) => {
     const { container } = await database.containers.createIfNotExists({ id: "archer" });
     for (var i = 0; i < data.length; i++) {
       const result = await container.items.upsert(data[i]);
-      console.log(result);
     }
     res.status(201).json({});
   } catch (error) {
@@ -51,7 +49,6 @@ export const getAllProblemSetData = async (req, res) => {
     const problemsetdata = await container.items
       .query("SELECT * from archerproblemsets WHERE true")
       .fetchAll();
-    console.log(problemsetdata);
     res.status(200).json(problemsetdata);
   } catch (error) {
     res.status(404).json({ message: error.message });
