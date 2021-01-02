@@ -58,12 +58,21 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { bookTitle, numSelected, handleUpload } = props;
+  const { bookTitle, numSelected, handleUpload, handleDelete, handleSoftUploadAndDelete, handleHardUploadAndDelete} = props;
 
   return (
     <Toolbar
       className={classes.root}
     >
+      <Tooltip title="Delete Set">
+        <IconButton className="fas fa-trash-alt" style={{ color: "blue" }} onClick={handleUpload}/>
+      </Tooltip>
+      <Tooltip title="Upload Completed and Delete Set">
+        <IconButton className="far fa-arrow-alt-circle-up" style={{ color: "blue" }} onClick={handleUpload}/>
+      </Tooltip>
+      <Tooltip title="Upload All and Delete Set">
+        <IconButton className="fas fa-arrow-alt-circle-up" style={{ color: "blue" }} onClick={handleUpload}/>
+      </Tooltip>
       {numSelected > 0 ? (
         <Typography className={classes.title} variant="subtitle1" component="div">
           {numSelected} selected -- saving will reverse each selected item
@@ -113,6 +122,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProblemSetTable(props) {
   const rows = props.rows
+  console.log(rows);
   const headCells = props.headCells;
   const classes = useStyles();
   const [selected, setSelected] = React.useState([]);
@@ -141,14 +151,27 @@ export default function ProblemSetTable(props) {
     setSelected(newSelected);
   };
 
+  // All completed problems will be set to completed in the database and the current problem set will be removed.
   const handleUpload = async () => {
-    if (selected.length === 0) {
-      return;
-    }
-    const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);
-    console.log(newBookData);
-    const response = await api.flipBookSections(newBookData);
-    window.location.reload();
+    // if (selected.length === 0) {
+    //   return;
+    // }
+    // const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);
+    // console.log(newBookData);
+    // const response = await api.flipBookSections(newBookData);
+    // window.location.reload();
+  }
+
+  const handleDelete = async () => {
+
+  }
+
+  const handleSoftUploadAndDelete = async () => {
+    
+  }
+
+  const handleHardUploadAndDelete = async () => {
+    
   }
 
   const handleChangePage = (event, newPage) => {
@@ -168,7 +191,14 @@ export default function ProblemSetTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar bookTitle={props.bookTitle} numSelected={selected.length} handleUpload={handleUpload}/>
+        <EnhancedTableToolbar 
+        bookTitle={props.bookTitle}
+        numSelected={selected.length}
+        handleUpload={handleUpload}
+        handleHardUploadAndDelete={handleHardUploadAndDelete}
+        handleDelete={handleDelete}
+        handleSoftUploadAndDelete={handleSoftUploadAndDelete}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -203,6 +233,7 @@ export default function ProblemSetTable(props) {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
+                      <TableCell component="th" id={row.id} scope="row" padding="none">{row.bookName} </TableCell>
                       <TableCell component="th" id={row.id} scope="row" padding="none">{row.sectionName} </TableCell>
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left" style={ isCompleted(row) ? {color: "green" } : {color: "red"}}>{row.completed}</TableCell>

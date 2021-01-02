@@ -101,29 +101,25 @@ export function flipCompletedProblems(bookdata, problemsToFlip, bookname) {
   return bookdata;
 }
 
-export function extractProblemsForTable(bookdata) {
-  if (Object.keys(bookdata).length === 0) {
-    return [
-      {
-        id: 0,
-        sectionName: "",
-        name: "",
-        completed: false,
-      },
-    ];
+export function extractProblemsForTable(problemdata) {
+  console.log(problemdata);
+  if (
+    Object.keys(problemdata).length === 0 ||
+    problemdata.resources.length === 0
+  ) {
+    return [];
   }
   let i = 0;
   let accumulator = [];
-  bookdata.sections.forEach((section) => {
-    section.problems.forEach((problem) => {
-      accumulator.push({
-        id: i,
-        sectionName: section.name,
-        name: problem.name,
-        completed: problem.completed.toString(),
-      });
-      i++;
+  problemdata.resources[0].problems.forEach((problem) => {
+    accumulator.push({
+      id: i,
+      bookName: problem.bookName,
+      sectionName: problem.sectionName,
+      name: problem.name,
+      completed: problem.completed.toString(),
     });
+    i++;
   });
   return accumulator;
 }

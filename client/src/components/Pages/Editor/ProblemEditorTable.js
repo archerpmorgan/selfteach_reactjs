@@ -113,6 +113,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProblemEditorTable(props) {
   const rows = props.rows
+  console.log(rows);
   const headCells = props.headCells;
   const classes = useStyles();
   const [selected, setSelected] = React.useState([]);

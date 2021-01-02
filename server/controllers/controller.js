@@ -55,6 +55,33 @@ export const getAllProblemSetData = async (req, res) => {
   }
 }
 
+export const postNewProblemSet = async (req, res) => {
+  // await getAllProblemSetData({},{}); Maybe try and see if one exists first?
+  const data = req.body;
+  console.log(data);
+  try {
+    const { container } = await database.containers.createIfNotExists({ id: "archerproblemsets" });
+    const result = await container.items.create(data);
+    res.status(201).json({});
+  } catch (error) {
+    console.log(error.message);
+    res.status(409).json({ message: error.message });
+  }
+}
+
+export const updateProblemSet = async (req, res) => {
+  // await getAllProblemSetData({},{}); Maybe try and see if one exists first?
+  const data = req.body;
+  console.log(data);
+  try {
+    const { container } = await database.containers.createIfNotExists({ id: "archerproblemsets" });
+    const result = await container.items.upsert(data);
+    res.status(201).json({});
+  } catch (error) {
+    console.log(error.message);
+    res.status(409).json({ message: error.message });
+  }
+}
 
 
 

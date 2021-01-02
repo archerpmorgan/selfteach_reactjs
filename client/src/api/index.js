@@ -6,5 +6,7 @@ export const getAllBookData = () => axios.get(url + "books");
 export const getAllProblemSetData = () => axios.get(url + "problemsets");
 export const flipBookSections = (newBookData) => axios.post(url + "sections", newBookData);
 export const flipBookProblems = (newBookData) => axios.post(url + "problems", newBookData);
+export const postNewProblemSet = (newProblemSetdata) => axios.post(url + "newproblemset", newProblemSetdata);
+export const updateProblemSet = (problemSetdata) => axios.post(url + "problemset", problemSetdata);
 
 
