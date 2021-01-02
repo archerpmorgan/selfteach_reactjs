@@ -19,7 +19,7 @@ function ProblemEditor(props) {
   const rows = extractProblemsForTable(allproblemsetdata);
 
   return (
-    <ProblemSetTable rows={rows} headCells={headCells}></ProblemSetTable>
+    <ProblemSetTable allproblemsetdata={allproblemsetdata} rows={rows} headCells={headCells}></ProblemSetTable>
   );
 }
 

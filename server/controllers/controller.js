@@ -84,4 +84,18 @@ export const updateProblemSet = async (req, res) => {
 }
 
 
+export const deleteProblemSet = async (req, res) => {
+  // await getAllProblemSetData({},{}); Maybe try and see if one exists first?
+  const data = req.body;
+  console.log(data.resources[0]);
+  try {
+    const { container } = await database.containers.createIfNotExists({ id: "archerproblemsets" });
+    const { resource: result } = await container.item(data.resources[0].id).delete();
+    res.status(201).json({});
+  } catch (error) {
+    console.log(error.message);
+    res.status(409).json({ message: error.message });
+  }
+}
+
 

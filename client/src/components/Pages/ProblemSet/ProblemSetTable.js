@@ -65,13 +65,13 @@ const EnhancedTableToolbar = (props) => {
       className={classes.root}
     >
       <Tooltip title="Delete Set">
-        <IconButton className="fas fa-trash-alt" style={{ color: "blue" }} onClick={handleUpload}/>
+        <IconButton className="fas fa-trash-alt" style={{ color: "blue" }} onClick={handleDelete}/>
       </Tooltip>
       <Tooltip title="Upload Completed and Delete Set">
-        <IconButton className="far fa-arrow-alt-circle-up" style={{ color: "blue" }} onClick={handleUpload}/>
+        <IconButton className="far fa-arrow-alt-circle-up" style={{ color: "blue" }} onClick={handleSoftUploadAndDelete}/>
       </Tooltip>
       <Tooltip title="Upload All and Delete Set">
-        <IconButton className="fas fa-arrow-alt-circle-up" style={{ color: "blue" }} onClick={handleUpload}/>
+        <IconButton className="fas fa-arrow-alt-circle-up" style={{ color: "blue" }} onClick={handleHardUploadAndDelete}/>
       </Tooltip>
       {numSelected > 0 ? (
         <Typography className={classes.title} variant="subtitle1" component="div">
@@ -122,7 +122,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProblemSetTable(props) {
   const rows = props.rows
-  console.log(rows);
   const headCells = props.headCells;
   const classes = useStyles();
   const [selected, setSelected] = React.useState([]);
@@ -163,7 +162,9 @@ export default function ProblemSetTable(props) {
   }
 
   const handleDelete = async () => {
-
+      const response = await api.deleteProblemSet(props.allproblemsetdata);
+      console.log(response);
+      window.location.reload();
   }
 
   const handleSoftUploadAndDelete = async () => {
