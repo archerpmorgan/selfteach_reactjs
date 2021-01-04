@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { extractProblemsForTable,} from "../../../common/DataFunctions.js";
+import { extractProblemsForProblemSetTable } from "../../../common/DataFunctions.js";
 import ProblemSetTable from "./ProblemSetTable";
 
 
@@ -16,10 +16,10 @@ function ProblemEditor(props) {
   const allbookdata = useSelector((state) => state.bookdata);
   const allproblemsetdata = useSelector((state) => state.problemsetdata);
   console.log(allproblemsetdata);
-  const rows = extractProblemsForTable(allproblemsetdata);
+  const rows = extractProblemsForProblemSetTable(allproblemsetdata);
 
   return (
-    <ProblemSetTable allproblemsetdata={allproblemsetdata} rows={rows} headCells={headCells}></ProblemSetTable>
+    <ProblemSetTable allbookdata={allbookdata} allproblemsetdata={allproblemsetdata} rows={rows} headCells={headCells}></ProblemSetTable>
   );
 }
 

@@ -113,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProblemEditorTable(props) {
   const rows = props.rows
-  console.log(rows);
   const headCells = props.headCells;
   const classes = useStyles();
   const [selected, setSelected] = React.useState([]);
@@ -147,7 +146,7 @@ export default function ProblemEditorTable(props) {
       return;
     }
     const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);
-    const response = await api.flipBookSections(newBookData);
+    const response = await api.flipBookProblems(newBookData);
     // Check response code 
     window.location.reload();
   }

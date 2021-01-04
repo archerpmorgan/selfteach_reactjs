@@ -15,7 +15,6 @@ function ProblemEditor(props) {
   const allbookdata = useSelector((state) => state.bookdata);
   const onebookdata = selectBook(allbookdata, props.bookname);
   const rows = extractProblemsForTable(onebookdata);
-  console.log(rows);
 
   return (
     <ProblemEditorTable bookTitle={props.bookname} rows={rows} headCells={headCells}></ProblemEditorTable>

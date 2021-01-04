@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from "react-redux";
-import { flipCompletedProblems } from "../../../common/DataFunctions.js";
+import { flipCompletedProblemsInProblemSet, flipCompletedProblemsInBookFromProblemSet } from "../../../common/DataFunctions.js";
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -127,7 +126,6 @@ export default function ProblemSetTable(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
-  const rawBookData = useSelector((state) => state.bookdata);
 
 
   const handleClick = (event, name) => {
@@ -152,13 +150,13 @@ export default function ProblemSetTable(props) {
 
   // All completed problems will be set to completed in the database and the current problem set will be removed.
   const handleUpload = async () => {
-    // if (selected.length === 0) {
-    //   return;
-    // }
-    // const newBookData = flipCompletedProblems(rawBookData, selected, props.bookTitle);
-    // console.log(newBookData);
-    // const response = await api.flipBookSections(newBookData);
-    // window.location.reload();
+    if (selected.length === 0) {
+      return;
+    }
+    const newBookData = flipCompletedProblemsInProblemSet(props.allproblemsetdata, selected);
+    const response = await api.updateProblemSet(props.allproblemsetdata);
+    // Check response code 
+    window.location.reload();
   }
 
   const handleDelete = async () => {
@@ -167,12 +165,21 @@ export default function ProblemSetTable(props) {
       window.location.reload();
   }
 
+  // Dont just update the problem set but update the book data and delete the problem set
   const handleSoftUploadAndDelete = async () => {
-    
+    const newBookData = flipCompletedProblemsInBookFromProblemSet(props.allbookdata, props.allproblemsetdata, false);
+    const postResponse = await api.flipBookProblems(newBookData);
+    // Check response code 
+    const deleteResponse = await api.deleteProblemSet(props.allproblemsetdata);
+    window.location.reload();
   }
-
+  // Dont just update the problem set but update the book data and delete the problem set
   const handleHardUploadAndDelete = async () => {
-    
+    const newBookData = flipCompletedProblemsInBookFromProblemSet(props.allbookdata, props.allproblemsetdata, true);
+    const postResponse = await api.flipBookProblems(newBookData);
+    // Check response code 
+    const deleteResponse = await api.deleteProblemSet(props.allproblemsetdata);
+    window.location.reload();
   }
 
   const handleChangePage = (event, newPage) => {

@@ -104,7 +104,6 @@ export default function CurrentProblemSet() {
 
   const handleNewProblemSet = () => {
     let newset = makeNewProblemSet(numRequested, JSON.parse(JSON.stringify(allbookdata.resources)));
-    console.log(newset);
   }
 
   const classes = useStyles();
