@@ -68,6 +68,18 @@ export const postNewProblemSet = async (req, res) => {
   }
 }
 
+export const createNewBook = async (req, res) => {
+  const data = req.body;
+  try {
+    const { container } = await database.containers.createIfNotExists({ id: "archer" });
+    const result = await container.items.create(data);
+    res.status(201).json({});
+  } catch (error) {
+    console.log(error.message);
+    res.status(409).json({ message: error.message });
+  }
+}
+
 export const updateProblemSet = async (req, res) => {
   // await getAllProblemSetData({},{}); Maybe try and see if one exists first?
   const data = req.body;

@@ -1,6 +1,6 @@
 import { CosmosClient } from "@azure/cosmos";
-import { config } from "../config.js"
+import { cosmosConfig } from "../config.js"
 
-
-const client = new CosmosClient(config());
+console.log(cosmosConfig())
+const client = new CosmosClient(cosmosConfig());
 export const { database } = await client.databases.createIfNotExists({ id: "userdata" });

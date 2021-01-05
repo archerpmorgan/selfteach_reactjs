@@ -7,6 +7,7 @@ import About from "./components/Pages/About"
 import CurrentProblemSet from "./components/Pages/ProblemSet/CurrentProblemSet"
 import MyData from "./components/Pages/MyData/MyData"
 import Editor from "./components/Pages/Editor/Editor"
+import NewBook from "./components/Pages/NewBook/NewBook"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/mydata" component={MyData}/>
             <Route path="/currentproblemset" component={CurrentProblemSet}/>
             <Route path="/editor" component={Editor}/>
+            <Route path="/newbook" component={NewBook}/>
           </Switch>
       </Router> 
     </div>

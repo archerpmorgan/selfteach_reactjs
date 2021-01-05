@@ -22,5 +22,11 @@ export const MenuItems = [
         url: '#',
         cName: 'nav-links',
         icon: 'fas fa-book-open'
+    },
+    {
+        title: 'New Book',
+        url: '#',
+        cName: 'nav-links',
+        icon: 'far fa-plus-square'
     }
 ]
