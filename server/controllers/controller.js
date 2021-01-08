@@ -1,5 +1,6 @@
 import express from "express";
 import { database } from "../Data/CosmosDBContext.js";
+import { blobServiceClient } from "../Data/BlobStorageContext.js";
 
 const router = express.Router();
 

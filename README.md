@@ -1,37 +1,50 @@
-# Development Notes
+# About the Project
+
+This is a web app that manages my self study using mathematics textbooks. I have always been fond of textbooks, and reading them and doing the exercises inside them is a crucial step to learning math. (The second step is to use the math for your own projects--to do something or try to understand the world.)
+
+This app allows me to track me progress through a changing set of textbooks. I can ask for a problem set to be generated automatically, with problems being pulled from chapters from each of them that I have read.
+
+Currently the single user is Me, Archer Morgan.
+
+## Development Notes
+
+External resource dependencies:
+- AAD app registrations for client and server
+- Cosmos DB, Bob storage account
 
 Tech stack
 
 - frontend: React, material ui, Redux, axios, victory, recharts
 - backend: Node
 - data: CosmosDB, Blob storage
-# installed packages
-- react-router-dom
+- Identity: AAD, msal-browser
+
+
 
 ## references used along the way
 - https://github.com/briancodex/react-navbar-v1/blob/master/src/components/Navbar/Navbar.js
 - https://www.youtube.com/watch?v=Law7wfdg_ls (routing)
 - https://www.youtube.com/watch?v=CVpUuw9XSjY (redux)
 - https://www.youtube.com/watch?v=ngc9gnGgUdA (full stack)
+- https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md ()
 
 
 Ideas/TODO
 
 Steps:
 
-1. ~~Edit the sections and problems in a section to reflect completion and date of completion~~
-2. ~~Problem set, be able to create a new one or complete an existing one, marker at problem left off on~~
-3.  Ingests tab, includes description of ingests format, does validation, takes photo, puts photo in Blob storage, start serving images from blob
-    1.  Add support for Linear Algebra Done right, probably by removing all hardcoding that cares precisely what books there are in there
-4. Clean up the data model, which components have what data and when, make sure API is RESTful
-4.  User Login, single tenant, secret management
-5.  testing and perf testing and bug bash
-6.  Think devops and deployment
-7.  Unify styling
+1.  User Login, single tenant, secret management
+    1.  toggle navigability in the nav bar depending on logged in
+    2.  add app registration for the app to azure ad
+    3.  implement login on about page
+2.  testing and perf testing and bug bash
+3.  Think devops and deployment
+4.  Unify styling
+    1.  brand the AAD tenant so that signin popup has my logo
    1. pluralsight styling with react course
    2. inspiration for style like the best parts of mathematics professors' janky old websites 
-8.  4. Complete the About page, add description of the project, tech used, how to use
-9.  Writeup of project with experience gained etc.
+5.  4. Complete the About page, add description of the project, tech used, how to use
+6.  Writeup of project with experience gained etc.
 
 
 optional additional features:

@@ -1,6 +1,4 @@
 import React from "react";
-import calculus from "../../../images/calculus.jpeg";
-import statistics from "../../../images/statistics.jpeg";
 import { makeStyles } from "@material-ui/core/styles";
 import StatsTable from "./StatsTable";
 import { Typography, Box, Container } from "@material-ui/core";
@@ -11,18 +9,12 @@ import { useSelector } from "react-redux";
 function BookDataOverview() {
   const raw = useSelector((state) => state.bookdata);
 
-  const imagedata = {
-    // "":ladr,
-    "Calculus Single and Multivariable": calculus,
-    "An Introduction to Mathematical Statistics and Its Applications": statistics,
-  }; // eventually grab from redux from blob storage, served by node server
-
   const allbooksdatacooked = [];
   raw.resources.forEach((book) => {
     let summaryData = summaryStatistics(book);
     allbooksdatacooked.push({
       title: book.title,
-      image: imagedata[book.title],
+      image: book.imageURL,
       problemData: [
         { name: "Complete", value: summaryData.completedProblems },
         {
