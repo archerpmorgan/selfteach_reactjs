@@ -38,3 +38,27 @@ optional additional features:
 - Utilize the Date Studied field 
 - Add more vizualizations 
 - add a form in problem set to be more exact about what you want (currently just takes from all books)
+
+
+
+## Book Ingestion
+
+Q. How can a user access a book for use in his/her personal account?
+A. There is a centralized store of books available which anyone can rope into their bookset.
+
+Q. How do books get added to the centralized book repository?
+A. The service Admin can upload any book using a standard format. Also, any user may upload an ingest request using the form to be approved by the Admin. If approved, the book is available for all to use. 
+
+Q. What is the standard format?
+A. See here for documentation
+
+
+## How to run
+
+from the command line, run 
+
+    `npm install`
+
+To download the node packages. Then, run
+
+    `npm start`
