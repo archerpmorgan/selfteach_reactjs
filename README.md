@@ -19,32 +19,28 @@ Tech stack
 - data: CosmosDB, Blob storage
 - Identity: AAD, msal-browser
 
-
-
 ## references used along the way
 - https://github.com/briancodex/react-navbar-v1/blob/master/src/components/Navbar/Navbar.js
 - https://www.youtube.com/watch?v=Law7wfdg_ls (routing)
 - https://www.youtube.com/watch?v=CVpUuw9XSjY (redux)
 - https://www.youtube.com/watch?v=ngc9gnGgUdA (full stack)
-- https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md ()
+- https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md (msal for react)
+- https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad (AAD configuration for oauth flow)
 
 
 Ideas/TODO
 
 Steps:
 
-1.  User Login, single tenant, secret management
-    1.  toggle navigability in the nav bar depending on logged in
-    2.  add app registration for the app to azure ad
-    3.  implement login on about page
-2.  testing and perf testing and bug bash
-3.  Think devops and deployment
-4.  Unify styling
+0. protect api endpoints
+1.  testing and perf testing and bug bash
+2.  Think devops and deployment
+3.  Unify styling
     1.  brand the AAD tenant so that signin popup has my logo
    1. pluralsight styling with react course
    2. inspiration for style like the best parts of mathematics professors' janky old websites 
-5.  4. Complete the About page, add description of the project, tech used, how to use
-6.  Writeup of project with experience gained etc.
+4.  4. Complete the About page, add description of the project, tech used, how to use
+5.  Writeup of project with experience gained etc.
 
 
 optional additional features:

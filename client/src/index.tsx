@@ -8,8 +8,7 @@ import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { MsalProvider } from "@azure/msal-react";
-import { Configuration, PublicClientApplication } from "@azure/msal-browser";
-import { aadconfig } from "./ActiveDirectoryConfig"
+import { msalInstance } from "./ActiveDirectoryConfig"
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const composeEnhancers = composeWithDevTools({
@@ -18,11 +17,9 @@ const composeEnhancers = composeWithDevTools({
 
 const store = createStore(appReducer, composeEnhancers(applyMiddleware(thunk)));
 
-const pca = new PublicClientApplication(aadconfig);
-
 // Component
 const AppProvider = () => (
-  <MsalProvider instance={pca}>
+  <MsalProvider instance={msalInstance}>
     <Provider store={store}>
       <App />
     </Provider>

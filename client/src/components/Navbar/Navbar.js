@@ -3,35 +3,29 @@ import { MenuItems } from "./MenuItems";
 import { Button } from "./Button";
 import './Navbar.css';
 import { Link } from 'react-router-dom';
-import { useMsalAuthentication, useIsAuthenticated } from "@azure/msal-react";
-import { PublicClientApplication } from "@azure/msal-browser"
-import { aadconfig } from "../../ActiveDirectoryConfig"
+import { useIsAuthenticated, MsalProvider, useMsal, useAccount } from "@azure/msal-react";
 
 
 function Navbar() {
 
     const isAuthenticated = useIsAuthenticated();
-
+    const { instance } = useMsal();
     const [clicked, setClicked] = useState(false);
 
-    const msalInstance = new PublicClientApplication(aadconfig);
-
     const signOut = () => {
-        msalInstance.logout();
+        instance.logout();
     }
 
     const signIn = async () => {
         try {
-            const loginResponse = await msalInstance.loginPopup({});
+            const loginResponse = await instance.loginPopup({});
         } catch (err) {
-            // handle error
+            console.log(err);
         }
         window.location.reload();
     }
 
     const loginButton = isAuthenticated? <Button onClick={signOut} >Sign Out</Button> : <Button onClick={signIn} >Sign In</Button>
-
-
 
     const navStyleSignedIn = {
             color: "black",
