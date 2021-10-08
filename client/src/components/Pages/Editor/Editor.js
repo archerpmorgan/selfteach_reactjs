@@ -32,7 +32,6 @@ function Editor() {
   const [checked, setChecked] = React.useState(["Calculus Single and Multivariable"]);
   const [selectedTab, setSelectedTab] = useState("Sections");
   const allbookdata = useSelector((state) => state.bookdata);
-  console.log(allbookdata);
   const bookTitles = getTitles(allbookdata);
 
   const handleToggle = (value) => () => {
@@ -41,32 +40,38 @@ function Editor() {
     setChecked(newChecked);
   };
 
-  const images = {
-    "Calculus Single and Multivariable": calculus,
-    "An Introduction to Mathematical Statistics and Its Applications": statistics,
-  };
+  const images = allbookdata.resources.map((book) => {
+    let title = book.title;
+    let url = book.imageURL;
+    return {
+      title,
+      url
+    }
+  });
+
+  console.log(images)
 
   return (
     <Container>
       <h1>Edit Data</h1>
       <List dense className={classes.root}>
-        {bookTitles.map((value) => {
-          const labelId = `checkbox-list-secondary-label-${value}`;
+        {images.map((value) => {
+          const labelId = `checkbox-list-secondary-label-${value.title}`;
           return (
-            <ListItem key={value} button>
+            <ListItem key={value.title} button>
               <ListItemAvatar>
                 <Avatar
                   variant="square"
-                  src={images[value]}
+                  src={value.url}
                   alt={"book cover photo"}
                 />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={value} />
+              <ListItemText id={labelId} primary={value.title} />
               <ListItemSecondaryAction>
                 <Checkbox
                   edge="end"
-                  onChange={handleToggle(value)}
-                  checked={checked.indexOf(value) !== -1}
+                  onChange={handleToggle(value.title)}
+                  checked={checked.indexOf(value.title) !== -1}
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemSecondaryAction>

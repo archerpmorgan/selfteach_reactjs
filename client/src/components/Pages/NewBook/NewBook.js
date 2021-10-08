@@ -4,7 +4,7 @@ import { Container, Paper, Button, TextareaAutosize } from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import * as api from '../../../api/index.js';
+import * as api from '../../../api/index.tsx';
 
 
 const useToolbarStyles = makeStyles((theme) => ({

@@ -10,7 +10,7 @@ import calculus from "../../../images/calculus.jpeg";
 import statistics from "../../../images/statistics.jpeg";
 import { useSelector } from "react-redux";
 import ProblemSetEditor from "./ProblemSetEditor";
-import * as api from '../../../api/index.js';
+import * as api from '../../../api/index.tsx';
 
 
 
