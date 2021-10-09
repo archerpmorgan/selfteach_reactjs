@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Web.Http;
 
 namespace bookTemplateProcessor
 {
@@ -45,7 +46,7 @@ namespace bookTemplateProcessor
             }
             else
             {
-                throw new Exception("malformatted ingestion template: no intro line");
+                return new BadRequestErrorMessageResult("Malformed first line");
             }
 
             Book book = new Book();
@@ -72,7 +73,7 @@ namespace bookTemplateProcessor
             }
             else
             {
-                throw new Exception("malformatted ingestion template: no break for start of chapters");
+                return new BadRequestErrorMessageResult("malformed template: no break for start of chapters");
             }
 
             // check for end, then loop through and consume chapters
@@ -82,7 +83,7 @@ namespace bookTemplateProcessor
             }
             else
             {
-                throw new Exception("malformatted ingestion template: no end");
+                return new BadRequestErrorMessageResult("malformed template: no end");
             }
 
             List<Section> sections = new List<Section>();
