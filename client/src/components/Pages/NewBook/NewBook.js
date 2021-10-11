@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import * as api from '../../../api/index.tsx';
+// import axios from axios;
 
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -19,11 +20,11 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const NewBookToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { isInputWellFormatted, handleUpload } = props;
+  const { isInputWellFormatted, handleUpload, image } = props;
 
   return (
     <Toolbar className={classes.root}>
-      {isInputWellFormatted ? (
+      {(isInputWellFormatted && image)?  (
         <Tooltip title="Upload">
           <IconButton
             className="far fa-save"
@@ -32,7 +33,7 @@ const NewBookToolbar = (props) => {
           />
         </Tooltip>
       ) : (
-        <Tooltip title="Up To Date">
+        <Tooltip title="Input not well-formatted or no image chosen">
           <IconButton
             className="far fa-times-circle"
             style={{ color: "red" }}
@@ -78,99 +79,111 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function checkIsInputWellFormatted(input) {
-    const matchstr = /ingestion template\nname:[,\s\w]+\nsubject:[,\s\w]+\nauthor:[,\s\w]+\nedition:[,\s\w]+\nimageURL:[,\s\w]*\nsections\W\Wname->description->number of problems\W:[\w\W]+end\sof\schapters\s/g;
-    return ( input.match(matchstr) != null);
+  const matchstr = /ingestion template\nname:[,\s\w]+\nsubject:[,\s\w]+\nauthor:[,\s\w]+\nedition:[,\s\w]+\nimageURL:[,\s\w]*\nsections\W\Wname->description->number of problems\W:[\w\W]+end\sof\schapters\s/g;
+  return (input.match(matchstr) != null);
 }
 
-function buildObject(input){
-    let retval = {}
-    let index = 0;
-    let lines = input.split(/\r?\n/);
-    console.log(lines);
-    index++;
-    let name = lines[index].split(/:[\s]*/)[1];
-    retval.title = name;
-    index++;
-    let subject = lines[index].split(/:[\s]*/)[1];
-    retval.subject = subject;
-    index++;
-    let author = lines[index].split(/:[\s]*/)[1];
-    retval.author = author;
-    index++;
-    let edition = lines[index].split(/:[\s]*/)[1];
-    retval.edition = edition;
-    index++;
-    let imageURL = lines[index].split(/:[\s]*/)[1];
-    retval.imageURL = imageURL;
-    index++;
-    index++
-    let sections = []
-    while (!lines[index].includes("end of chapter")){
-        let [sectionName, description, num] = lines[index].split(/->/);
-        num = parseInt(num);
-        let problems = []
-        for (let i = 0; i<num; i++){
-            problems.push({
-                name: i.toString(),
-                completedDate: "",
-                completed: false
-            });
-        }
-        sections.push({
-            name: sectionName,
-            haveStudied: false,
-            studiedDate: "",
-            description: description,
-            problems: problems
-        })
-        index++;
+function buildObject(input) {
+  let retval = {}
+  let index = 0;
+  let lines = input.split(/\r?\n/);
+  console.log(lines);
+  index++;
+  let name = lines[index].split(/:[\s]*/)[1];
+  retval.title = name;
+  index++;
+  let subject = lines[index].split(/:[\s]*/)[1];
+  retval.subject = subject;
+  index++;
+  let author = lines[index].split(/:[\s]*/)[1];
+  retval.author = author;
+  index++;
+  let edition = lines[index].split(/:[\s]*/)[1];
+  retval.edition = edition;
+  index++;
+  let imageURL = lines[index].split(/:[\s]*/)[1];
+  retval.imageURL = imageURL;
+  index++;
+  index++
+  let sections = []
+  while (!lines[index].includes("end of chapter")) {
+    let [sectionName, description, num] = lines[index].split(/->/);
+    num = parseInt(num);
+    let problems = []
+    for (let i = 0; i < num; i++) {
+      problems.push({
+        name: i.toString(),
+        completedDate: "",
+        completed: false
+      });
     }
-    retval.sections = sections;
-    return retval
+    sections.push({
+      name: sectionName,
+      haveStudied: false,
+      studiedDate: "",
+      description: description,
+      problems: problems
+    })
+    index++;
+  }
+  retval.sections = sections;
+  return retval
 }
 
 function NewBook() {
   const classes = useStyles();
   const [isInputWellFormatted, setIsInputWellFormatted] = useState(false);
   const [inputText, setInputText] = useState("");
+  const [image, setImage] = useState(null);
 
+  const fileSelectedHandler = event => {
+    console.log(event.target.files[0]);
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
+  }
 
-  const handleUpload = async() => {
-      let bookObj = buildObject(inputText);
-      console.log(bookObj);
-      const response = await api.postNewBook(bookObj);
-      console.log(response);
-      // Check response code 
-      window.location.reload();
+  const handleUpload = async () => {
+    let bookObj = buildObject(inputText);
+    console.log(bookObj);
+    const response = await api.postNewBook(bookObj);
+    console.log(response);
+    // Check response code 
+    window.location.reload();
   };
 
   const handletextareachange = (event) => {
+    console.log("text area change")
     setIsInputWellFormatted(checkIsInputWellFormatted(event.target.value));
     setInputText(event.target.value);
   }
-
   return (
     <Container>
-      <h1>Import a New Book</h1>
+      <h1>Suggest a New Book for the Public Library</h1>
+      <h2>Upload a well-formatted template and a cover image and your submission will be reviewed by a service administrator</h2>
       <div className="App mt-4">
-      <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <NewBookToolbar
-          isInputWellFormatted={isInputWellFormatted}
-          handleUpload={handleUpload}
-        />
-        <TextareaAutosize
-          className={classes.textinput}
-          rowsMin={5}
-          aria-label="maximum height"
-          onChange={handletextareachange}
-        />
-      </Paper>
-    </div>
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
+            <NewBookToolbar
+              isInputWellFormatted={isInputWellFormatted}
+              handleUpload={handleUpload}
+              image={image}
+            />
+            <TextareaAutosize
+              className={classes.textinput}
+              rowsMin={5}
+              aria-label="maximum height"
+              onChange={handletextareachange}
+            />
+            <input type="file" onChange={fileSelectedHandler} />
+            {image ?
+              <img src={image} alt="preview image" /> :
+              <></>
+            }
+          </Paper>
+        </div>
       </div>
     </Container>
-
-
   );
 }
 
