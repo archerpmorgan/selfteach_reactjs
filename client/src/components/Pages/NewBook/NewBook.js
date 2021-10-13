@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import * as api from '../../../api/index.tsx';
-// import axios from axios;
+import axios from "axios";
 
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -20,11 +20,11 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const NewBookToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { isInputWellFormatted, handleUpload, image } = props;
+  const { hasText, handleUpload, image } = props;
 
   return (
     <Toolbar className={classes.root}>
-      {(isInputWellFormatted && image)?  (
+      {(hasText && image)?  (
         <Tooltip title="Upload">
           <IconButton
             className="far fa-save"
@@ -33,7 +33,7 @@ const NewBookToolbar = (props) => {
           />
         </Tooltip>
       ) : (
-        <Tooltip title="Input not well-formatted or no image chosen">
+        <Tooltip title="Input a well-formatted filled-out template into the textarea!">
           <IconButton
             className="far fa-times-circle"
             style={{ color: "red" }}
@@ -78,61 +78,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function checkIsInputWellFormatted(input) {
-  const matchstr = /ingestion template\nname:[,\s\w]+\nsubject:[,\s\w]+\nauthor:[,\s\w]+\nedition:[,\s\w]+\nimageURL:[,\s\w]*\nsections\W\Wname->description->number of problems\W:[\w\W]+end\sof\schapters\s/g;
-  return (input.match(matchstr) != null);
-}
-
-function buildObject(input) {
-  let retval = {}
-  let index = 0;
-  let lines = input.split(/\r?\n/);
-  console.log(lines);
-  index++;
-  let name = lines[index].split(/:[\s]*/)[1];
-  retval.title = name;
-  index++;
-  let subject = lines[index].split(/:[\s]*/)[1];
-  retval.subject = subject;
-  index++;
-  let author = lines[index].split(/:[\s]*/)[1];
-  retval.author = author;
-  index++;
-  let edition = lines[index].split(/:[\s]*/)[1];
-  retval.edition = edition;
-  index++;
-  let imageURL = lines[index].split(/:[\s]*/)[1];
-  retval.imageURL = imageURL;
-  index++;
-  index++
-  let sections = []
-  while (!lines[index].includes("end of chapter")) {
-    let [sectionName, description, num] = lines[index].split(/->/);
-    num = parseInt(num);
-    let problems = []
-    for (let i = 0; i < num; i++) {
-      problems.push({
-        name: i.toString(),
-        completedDate: "",
-        completed: false
-      });
-    }
-    sections.push({
-      name: sectionName,
-      haveStudied: false,
-      studiedDate: "",
-      description: description,
-      problems: problems
-    })
-    index++;
-  }
-  retval.sections = sections;
-  return retval
-}
+// function checkIsInputWellFormatted(input) {
+//   const matchstr = /ingestion template\nname:[,\s\w]+\nsubject:[,\s\w]+\nauthor:[,\s\w]+\nedition:[,\s\w]+\nimageURL:[,\s\w]*\nsections\W\Wname->description->number of problems\W:[\w\W]+end\sof\schapters\s/g;
+//   return (input.match(matchstr) != null);
+// }
 
 function NewBook() {
   const classes = useStyles();
-  const [isInputWellFormatted, setIsInputWellFormatted] = useState(false);
   const [inputText, setInputText] = useState("");
   const [image, setImage] = useState(null);
 
@@ -144,19 +96,29 @@ function NewBook() {
   }
 
   const handleUpload = async () => {
-    let bookObj = buildObject(inputText);
-    console.log(bookObj);
-    const response = await api.postNewBook(bookObj);
-    console.log(response);
-    // Check response code 
-    window.location.reload();
+    const result = axios.post("http://localhost:7071/api/ValidateAndProcess", inputText).catch(function (error) {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      };
+    });
+    console.log(result)
+    // window.location.reload();
   };
 
   const handletextareachange = (event) => {
     console.log("text area change")
-    setIsInputWellFormatted(checkIsInputWellFormatted(event.target.value));
     setInputText(event.target.value);
   }
+
   return (
     <Container>
       <h1>Suggest a New Book for the Public Library</h1>
@@ -165,7 +127,7 @@ function NewBook() {
         <div className={classes.root}>
           <Paper className={classes.paper}>
             <NewBookToolbar
-              isInputWellFormatted={isInputWellFormatted}
+              hasText={inputText.length > 0}
               handleUpload={handleUpload}
               image={image}
             />

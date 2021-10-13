@@ -67,6 +67,10 @@ namespace bookTemplateProcessor
             book.edition = edition;
             index++;
 
+            var imageUrl = lines[index].Split(":")[1].Trim();
+            book.url = imageUrl;
+            index++;
+
             if (lines[index].Contains("name->description->number"))
             {
                 index++;

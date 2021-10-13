@@ -8,6 +8,7 @@ namespace bookTemplateProcessor
         public string subject { get; set; }
         public string author { get; set; }
         public string edition { get; set; }
+        public string url { get; set; }
 
         public string cover { get; set; }
         public IList<Section> sections { get; set; }
