@@ -71,6 +71,9 @@ Azure function bookTemplateProcessor takes a template file, validates it, and re
 
 The admin may approve for release to public library. 
 
+TODO NEXT
+New Book page becomes Library page, with tabs like in Editor for either viewing and bringing in new books or suggesting a new book through flow just implemented
+
 
 ## How to run
 
