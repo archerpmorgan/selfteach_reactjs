@@ -17,13 +17,13 @@ function Books() {
           setSelected={setSelectedTab}
         >
           <Tab isSelected={selectedTab === "My Library"}>
-            <NewBook bookname={checked[0]}></NewBook>
+            <NewBook></NewBook>
           </Tab>
           <Tab isSelected={selectedTab === "Public Library"}>
-            <NewBook bookname={checked[0]}></NewBook>
+            <NewBook></NewBook>
           </Tab>
           <Tab isSelected={selectedTab === "New Book"}>
-            <NewBook bookname={checked[0]}></NewBook>
+          <NewBook></NewBook>
           </Tab>
         </TabNav>
     </Container>
