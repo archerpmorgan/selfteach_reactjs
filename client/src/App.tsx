@@ -7,7 +7,7 @@ import About from "./components/Pages/About";
 import CurrentProblemSet from "./components/Pages/ProblemSet/CurrentProblemSet";
 import MyData from "./components/Pages/MyData/MyData";
 import Editor from "./components/Pages/Editor/Editor";
-import NewBook from "./components/Pages/NewBook/NewBook";
+import Books from "./components/Pages/Books/Books";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { InteractionRequiredAuthError } from "msal";
@@ -62,7 +62,7 @@ const App = () => {
           <Route path="/mydata" component={MyData} />
           <Route path="/currentproblemset" component={CurrentProblemSet} />
           <Route path="/editor" component={Editor} />
-          <Route path="/newbook" component={NewBook} />
+          <Route path="/books" component={Books} />
         </Switch>
       </Router>
     </div>
