@@ -4,17 +4,17 @@ import TabNav from "../../TabNav/TabNav";
 import { Container, Paper, Button, TextareaAutosize } from "@material-ui/core";
 import NewBook from "./NewBook";
 import MyLibrary from "./MyLibrary";
+import Editor from "../Editor/Editor";
 
 
 function Books() {
 
-  const [checked, setChecked] = React.useState(["My Library"]);
   const [selectedTab, setSelectedTab] = useState("Sections");
 
   return (
     <Container>
       <TabNav
-        tabs={["My Library", "Public Library", "New Book"]}
+        tabs={["My Library", "Public Library", "New Book", "Book Data Editor"]}
         selected={selectedTab}
         setSelected={setSelectedTab}
       >
@@ -26,6 +26,9 @@ function Books() {
         </Tab>
         <Tab isSelected={selectedTab === "New Book"}>
           <NewBook></NewBook>
+        </Tab>
+        <Tab isSelected={selectedTab === "Book Data Editor"}>
+          <Editor></Editor>
         </Tab>
       </TabNav>
     </Container>

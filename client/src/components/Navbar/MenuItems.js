@@ -18,12 +18,6 @@ export const MenuItems = [
         icon: 'fas fa-pencil-alt'
     },
     {
-        title: 'Editor',
-        url: '#',
-        cName: 'nav-links',
-        icon: 'far fa-plus-square'
-    },
-    {
         title: 'Books',
         url: '#',
         cName: 'nav-links',

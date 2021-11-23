@@ -65,7 +65,7 @@ function RecipeReviewCard(props) {
                 alt="book cover image"
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="secondary">
                     A basic summary of the book should go here
                 </Typography>
             </CardContent>

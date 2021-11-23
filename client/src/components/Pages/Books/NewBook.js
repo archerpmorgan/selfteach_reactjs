@@ -133,7 +133,7 @@ function NewBook() {
             />
             <TextareaAutosize
               className={classes.textinput}
-              rowsMin={5}
+              minRows={5}
               aria-label="maximum height"
               onChange={handletextareachange}
             />
