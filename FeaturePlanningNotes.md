@@ -45,3 +45,15 @@ Topics for summative address
 - TLS
 - JAvascript to Typescript
   - Language best practices and features
+
+
+What I most recently did
+
+Connect azure function to cosmosdb with managed identity
+
+
+Where I left off:
+
+I need to add the functionality to be able to ask for a new problem set from a refined set of books of my choosing
+
+Once that is in place I will go back to studying for the CCNA
