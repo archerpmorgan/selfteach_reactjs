@@ -66,8 +66,7 @@ namespace bookTemplateProcessor
 
             var keys = JsonConvert.DeserializeObject<DatabaseAccountListKeysResult>(keysResult);
 
-            client = new CosmosClient("https://selfteachdev.documents.azure.com:443/", "S7WxcORobRt8R5wIDDXsjNdnwC8D2LVu55aKzfql3AHsbnmxnhD9Dxgw6ZYguly0dXvAPJ9HlmjbET3ybGwS1Q ==");
-            //client = new CosmosClient(cosmosDbEndpoint, keys.primaryMasterKey);
+            client = new CosmosClient(cosmosDbEndpoint, keys.primaryMasterKey);
 
         }
 
