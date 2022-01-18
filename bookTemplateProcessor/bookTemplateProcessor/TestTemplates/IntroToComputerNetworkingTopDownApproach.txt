@@ -1,0 +1,37 @@
+ingestion template
+name:Introduction To Computer Networking A Top-Down Approach   
+subject:Computer Science
+author:Kurose and Ross
+edition:7
+imageURL: https://selfteachmedia.blob.core.windows.net/bookcovers/introductionToMechanics.png
+chapters (name->description->number of problems) (Note chapter review goes up through CAS):
+1R->Computer Networks and the Internet->28
+1P->Computer Networks and the Internet->34
+2R->Application Layer->27
+2P->Application Layer->32
+2PA->Application Layer->4
+2Wireshark->Application Layer->2
+3R->Transport Layer->19
+3P->Transport Layer->56
+3PA->Transport Layer->1
+3Wireshark->Transport Layer->2
+4R->The Network Layer: Data Plane->35
+4P->The Network Layer: Data Plane->22
+4Wireshark->The Network Layer: Data Plane->1
+5R->The Network Layer: Control Plane->24
+5P->The Network Layer: Control Plane->22
+5PA->The Network Layer: Control Plane->2
+5Wireshark->The Network Layer: Control Plane->1
+6R->The Link Layer and LANs->16
+6P->The Link Layer and LANs->33
+6Wireshark->The Link Layer and LANs->1
+7R->Wireless and Mobile Networks->23
+7P->Wireless and Mobile Networks->15
+7Wireshark->Wireless and Mobile Networks->1
+8R->Security in Computer Networks->33
+8P->Security in Computer Networks->25
+8Wireshark->Security in Computer Networks->2
+9R->Multimedia Networking->13
+9P->Multimedia Networking->22
+9PA->Multimedia Networking->1
+end of chapters

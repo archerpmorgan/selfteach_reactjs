@@ -117,9 +117,11 @@ namespace bookTemplateProcessor
 
             book.sections = sections;
 
-            string document = System.Text.Json.JsonSerializer.Serialize(book);
+            var cosmosService = new CosmosDBService();
+            await cosmosService.Initialize();
+            await cosmosService.PostBook(book);
 
-            return new OkObjectResult(document);
+            return new OkObjectResult(System.Text.Json.JsonSerializer.Serialize(book));
         }
     }
 }
