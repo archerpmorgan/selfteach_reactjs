@@ -54,6 +54,8 @@ Connect azure function to cosmosdb with managed identity
 
 Where I left off:
 
+Need to add a blob post for the cover image of a book being added. Generally need to just clean up that whole flow. Proably should have a form request instead of a text upload..
+
 I need to add the functionality to be able to ask for a new problem set from a refined set of books of my choosing
 
 Once that is in place I will go back to studying for the CCNA
