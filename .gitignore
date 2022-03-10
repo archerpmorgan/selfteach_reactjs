@@ -32,9 +32,6 @@ jspm_packages
 .node_repl_history
 .DS_Store
 
-#Excluding build directory
-public/
-
 server/config.js
 client/src/ActiveDirectoryConfig.tsx
 client/src/ApiKey.js
