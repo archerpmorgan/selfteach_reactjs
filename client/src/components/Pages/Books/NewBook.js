@@ -96,7 +96,7 @@ function NewBook() {
   }
 
   const handleUpload = async () => {
-    const result = axios.post("http://localhost:7071/api/ValidateAndProcess", inputText).catch(function (error) {
+    const result = axios.post("https://booktemplateprocessor.azurewebsites.net/api/ValidateAndProcess", inputText).catch(function (error) {
       if (error.response) {
         // Request made and server responded
         console.log(error.response.data);
@@ -133,7 +133,7 @@ function NewBook() {
             />
             <TextareaAutosize
               className={classes.textinput}
-              rowsMin={5}
+              minRows={5}
               aria-label="maximum height"
               onChange={handletextareachange}
             />

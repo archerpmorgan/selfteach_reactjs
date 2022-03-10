@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../../../App.css";
 import { Container, Paper, Button } from "@material-ui/core";
-import { getTitles } from "../../../common/DataFunctions.js";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,6 +10,13 @@ import statistics from "../../../images/statistics.jpeg";
 import { useSelector } from "react-redux";
 import ProblemSetEditor from "./ProblemSetEditor";
 import * as api from '../../../api/index.tsx';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import Checkbox from "@material-ui/core/Checkbox";
+import Avatar from "@material-ui/core/Avatar";
 
 
 
@@ -50,31 +56,36 @@ function getNumProblemsRemaining(bookdata){
   return count;
 }
 
-async function makeNewProblemSet(num, bookdata) {
+async function makeNewProblemSet(num, bookdata, checked) {
+    console.log(checked)
     // create big list of possibles where the section has been studied and the problem is not already completed
-    let possibles = []
+    let possibles = [];
     let set = [];
     bookdata.forEach(book => {
-      book.sections.forEach((section) => {
-        section.problems.forEach((problem) => {
-          if (section.haveStudied && !problem.completed) {
-            possibles.push({
-              bookName: book.title,
-              sectionName: section.name,
-              name: problem.name,
-              completed: "false"
+        if (checked.indexOf(book.title) !== -1) {
+          book.sections.forEach((section) => {
+            section.problems.forEach((problem) => {
+              if (section.haveStudied && !problem.completed) {
+                possibles.push({
+                  bookName: book.title,
+                  sectionName: section.name,
+                  name: problem.name,
+                  completed: "false"
+                })
+              }
             })
-          }
-        })
-      })
-    });
+          })
+        }
+      }
+    );
     // select randomly from this list
-    const npr = getNumProblemsRemaining(bookdata);
-    Math.floor(Math.random() * npr);
+    if (num > possibles.length) {
+      return {}
+    }
     for (let i = 0; i < num; i++) {
-      let candidate = Math.floor(Math.random() * npr);
+      let candidate = Math.floor(Math.random() * possibles.length);
       while (set.includes(candidate)){
-        candidate = Math.floor(Math.random() * npr);
+        candidate = Math.floor(Math.random() * possibles.length);
       }
       set.push(candidate);
     }
@@ -102,8 +113,15 @@ function setAvailable(problemSetData){
 
 export default function CurrentProblemSet() {
 
+  const [checked, setChecked] = React.useState([
+    "Calculus Single and Multivariable",
+    "Introduction To Computer Networking A Top-Down Approach",
+    "Linear Algebra Done Right",
+    "An Introduction to Mathematical Statistics and Its Applications"
+  ]);
+
   const handleNewProblemSet = () => {
-    let newset = makeNewProblemSet(numRequested, JSON.parse(JSON.stringify(allbookdata.resources)));
+    let newset = makeNewProblemSet(numRequested, JSON.parse(JSON.stringify(allbookdata.resources)), checked);
   }
 
   const classes = useStyles();
@@ -111,21 +129,71 @@ export default function CurrentProblemSet() {
   const allbookdata = useSelector((state) => state.bookdata);
   const allproblemsetdata = useSelector((state) => state.problemsetdata);
 
-
   const handleChange = (event) => {
     setNumRequested(event.target.value);
   };
 
-  const images = {
-    "Calculus Single and Multivariable": calculus,
-    "An Introduction to Mathematical Statistics and Its Applications": statistics,
+  const handleToggle = (value) => () => {
+    if (checked.indexOf(value) == -1) {
+      const newChecked = [];
+      checked.forEach(element => {
+          newChecked.push(element);
+      });
+      newChecked.push(value);
+      setChecked(newChecked);      
+    }
+    else {
+      const newChecked = [];
+      checked.forEach(element => {
+        if (element != value) {
+          newChecked.push(element);
+        }
+      });
+      setChecked(newChecked);
+    }
   };
+
+  const imagesForSelector = allbookdata.resources.map((book) => {
+    let title = book.title;
+    let url = book.imageURL;
+    return {
+      title,
+      url
+    }
+  });
+
 
   return (
     <Container>
       <h1>Problem Set</h1>
 
       <Paper>
+        <h3>Scope to particular books</h3>
+        <List dense className={classes.root}>
+          {imagesForSelector.map((value) => {
+            const labelId = `checkbox-list-secondary-label-${value.title}`;
+            return (
+              <ListItem key={value.title} button>
+                <ListItemAvatar>
+                  <Avatar
+                    variant="square"
+                    src={value.url}
+                    alt={"book cover photo"}
+                  />
+                </ListItemAvatar>
+                <ListItemText id={labelId} primary={value.title} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    edge="end"
+                    onChange={handleToggle(value.title)}
+                    checked={checked.indexOf(value.title) !== -1}
+                    inputProps={{ "aria-labelledby": labelId }}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
+        </List>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="age-native-simple">Number of Problems ({`${getNumProblemsRemaining(allbookdata.resources)} total remaining`})</InputLabel>
         <Select
@@ -145,6 +213,7 @@ export default function CurrentProblemSet() {
           New
         </Button>
       </Paper>
+    
 
       <div className="App mt-4">
         <ProblemSetEditor ></ProblemSetEditor>

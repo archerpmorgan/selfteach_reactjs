@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace bookTemplateProcessor
@@ -8,9 +9,9 @@ namespace bookTemplateProcessor
         public string subject { get; set; }
         public string author { get; set; }
         public string edition { get; set; }
-        public string url { get; set; }
+        public string imageURL { get; set; }
+        public string id = Guid.NewGuid().ToString();
 
-        public string cover { get; set; }
         public IList<Section> sections { get; set; }
     }
 }

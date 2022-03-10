@@ -35,6 +35,7 @@ jspm_packages
 server/config.js
 client/src/ActiveDirectoryConfig.tsx
 client/src/ApiKey.js
+*package-lock*
 # Logs
 logs
 *.log

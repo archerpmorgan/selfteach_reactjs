@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../../App.css";
-import Tab from "./Tab";
-import TabNav from "./TabNav";
+import Tab from "../../TabNav/Tab";
+import TabNav from "../../TabNav/TabNav";
 import { Container } from "@material-ui/core";
 import SectionEditor from "./SectionEditor";
 import { getTitles } from "../../../common/DataFunctions.js";
