@@ -30,25 +30,6 @@ Tech stack
 
 Ideas/TODO
 
-Steps:
-
-0. protect api endpoints
-1.  testing and perf testing and bug bash
-2.  Think devops and deployment
-3.  Unify styling
-    1.  brand the AAD tenant so that signin popup has my logo
-   1. pluralsight styling with react course
-   2. inspiration for style like the best parts of mathematics professors' janky old websites 
-4.  4. Complete the About page, add description of the project, tech used, how to use
-5.  Writeup of project with experience gained etc.
-
-
-optional additional features:
-- Utilize the Date Studied field 
-- Add more vizualizations 
-- add a form in problem set to be more exact about what you want (currently just takes from all books)
-
-
 ## How to run
 
 from the command line, run 
@@ -60,16 +41,52 @@ To download the node packages. Then, run
     `npm start`
 
 
-Ideas for this project:
 
-- style like the best parts of mathematics professors' janky old websites 
+
+
+
+
+Workback notes
+
+Start with Project summary from where I am now, and where I want to be, and the steps I will take in order, Sort of like a journal of the process. 
+
+Each gets 2 waves. (1) Low hanging fruit, (2) nice to haves. The nice to haves will be compiled throughout the course of phase 1. Phase 1 will be decided upon in advance.
+
+Step 1: create new git repo for the project. Create a new react-node app from scratch that is JavaScript, not TypeScript, move all old code over. 
+https://blog.logrocket.com/mern-stack-tutorial/
+https://javascript.plainenglish.io/building-a-spa-with-react-and-node-cef18dccef17
+Use correct package management and git hygeine with ignores and stuff. Document this process. Collect all steps, tips, and notes into a running journal while going. 
+
+
+Major areas
+
+
+
+Features 
+- What feature set makes the app complete? (without styling)
 - When choosing problems, the first ~ quarter or so of the section should be given in sequence, but the rest should be randomized
-- Marker placed on problem stopped at
-- web page with graphics on progress through different books
-- add date studied to book sections table
-- enable description of prioritization of different books (for example, as number between 1,100)
-- selection of problems should guarantee the first n and then pick randomly?
-- add command line -h option for detailed list of all commands
-- write project summary: What learned, what went well and not, how to use (perhaps that goes in the README), tech stack, etc.
-- better method for chapters studied. Have one sections file per book with all the sections present. Then place an X next to the section of it has been studied and leave nothing there if it hasnt
-- Expand to include theorems from the text
+- Utilize the Date Studied field 
+- add a form in problem set to be more exact about what you want (currently just takes from all books)
+
+Users, AuthE/AuthZ, protected API, security
+
+DevOps
+- Build
+    - lint, tests, coverage
+- Hosting
+- Automated Deployment
+    I want to be able to easily deploy latest changes to a hosted environment
+- Easily spin up local testing environment OR easily deploy to testing environment
+- Easily redeploy infrastructure
+- Package management
+
+Language/Framework/Tech Stack
+- Package management 
+- JS/TS/Lint+Learn
+- code organization
+- Data modeling in cosmos correctly
+
+Style/layout/Design
+- style like the best parts of mathematics professors' janky old websites, but do so in a modern way framework-wise
+
+TypeScript
