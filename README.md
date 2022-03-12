@@ -43,9 +43,6 @@ To download the node packages. Then, run
 
 
 
-
-
-
 Workback notes
 
 Start with Project summary from where I am now, and where I want to be, and the steps I will take in order, Sort of like a journal of the process. 
@@ -57,18 +54,40 @@ https://blog.logrocket.com/mern-stack-tutorial/
 https://javascript.plainenglish.io/building-a-spa-with-react-and-node-cef18dccef17
 Use correct package management and git hygeine with ignores and stuff. Document this process. Collect all steps, tips, and notes into a running journal while going. 
 
-
 Major areas
-
-
 
 Features 
 - What feature set makes the app complete? (without styling)
+Everything I do I want to be easy
+I want to be able to
+
+Have a landing page that looks nice and describes the product
+
+Have a library of books that I am making progress through
+    - See my progress through any book in fine grained and high level form
+    - edit the data associated with any book without going into storage, including marking a chapter as "studied" and thus elligible to be used in a problem set
+    - Add books to and remove books from this personal library seamlessly
+
+Autogenerate problem sets from the books I am studying
+    - I can generate a new problem set from uncompleted problems in the textbooks in my library
+        Sub-criteria (form):
+        - select which books participate
+        - specify number of problems
+        - Chapter and book are selected randomly (must have already studied), but once that is pinned down, the "next" problem is selected in order
+    - I have a list of current problem sets, I can view or edit any of them
+    - I can mark individual problems on the problem set as complete
+    - I can "complete" a problem set, with the affect that all the problems from the set get marked as complete in the data for the books
+    - I can delete a problem set
+    - (stretch) I can view the history of completed problem sets, and store the files from my work on the and view those as well
+
+
 - When choosing problems, the first ~ quarter or so of the section should be given in sequence, but the rest should be randomized
 - Utilize the Date Studied field 
 - add a form in problem set to be more exact about what you want (currently just takes from all books)
 
 Users, AuthE/AuthZ, protected API, security
+- User must login to view and edit his data
+- The architecture of the system allows for multiple users
 
 DevOps
 - Build
@@ -88,5 +107,7 @@ Language/Framework/Tech Stack
 
 Style/layout/Design
 - style like the best parts of mathematics professors' janky old websites, but do so in a modern way framework-wise
+- Create a logo using someone like Mira or Emery to help me so I can see the logo making process
+- (Strech) works on mobile and desktop
 
 TypeScript
