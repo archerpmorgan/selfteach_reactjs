@@ -80,14 +80,10 @@ Autogenerate problem sets from the books I am studying
     - I can delete a problem set
     - (stretch) I can view the history of completed problem sets, and store the files from my work on the and view those as well
 
-
-- When choosing problems, the first ~ quarter or so of the section should be given in sequence, but the rest should be randomized
-- Utilize the Date Studied field 
-- add a form in problem set to be more exact about what you want (currently just takes from all books)
-
 Users, AuthE/AuthZ, protected API, security
 - User must login to view and edit his data
 - The architecture of the system allows for multiple users
+- service handles secrets correctly
 
 DevOps
 - Build
@@ -108,6 +104,6 @@ Language/Framework/Tech Stack
 Style/layout/Design
 - style like the best parts of mathematics professors' janky old websites, but do so in a modern way framework-wise
 - Create a logo using someone like Mira or Emery to help me so I can see the logo making process
-- (Strech) works on mobile and desktop
+- (Stretch) works on mobile and desktop
 
 TypeScript
